@@ -1,0 +1,13 @@
+﻿global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using EstateWebsite.Data;
+global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
+global using System.ComponentModel.DataAnnotations.Schema;
+global using EstateWebsite.Repo.IRepo;
+global using EstateWebsite.Models;
+global using EstateWebsite.Repo;
+global using EstateWebsite.Services;
+global using EstateWebsite.Services.IServices;
+global using EstateWebsite.ViewModel;
+global using AutoMapper;

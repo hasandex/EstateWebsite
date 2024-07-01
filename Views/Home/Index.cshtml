@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Home>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-danger">
+        <p>No Homes Yet!</p>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Home</th>
+                <th>Price</th>
+
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var home in Model)
+            {
+                <tr>
+                    <td>@home.Id</td
+                    <td>@home.Price</td>
+                    <td><a asp-action="Update" asp-route-homeId="@home.Id">edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

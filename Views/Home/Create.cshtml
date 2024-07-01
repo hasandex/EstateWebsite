@@ -1,0 +1,124 @@
+﻿@model CreateHomeVM
+
+@{
+    ViewData["Ttile"] = "Create a Home";
+}
+
+<form asp-action="Create" asp-controller="Home" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Governorate"></label>
+        <input asp-for="Governorate" class="form-control" />
+        <span asp-validation-for="Governorate" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Street"></label>
+        <input asp-for="Street" class="form-control" />
+        <span asp-validation-for="Street" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="longitude"></label>
+        <input asp-for="longitude" class="form-control" />
+        <span asp-validation-for="longitude" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="latitude"></label>
+        <input asp-for="latitude" class="form-control" />
+        <span asp-validation-for="latitude" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Area"></label>
+        <input asp-for="Area" class="form-control" />
+        <span asp-validation-for="Area" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NFloor"></label>
+        <input asp-for="NFloor" class="form-control" />
+        <span asp-validation-for="NFloor" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NRoom"></label>
+        <input asp-for="NRoom" class="form-control" />
+        <span asp-validation-for="NRoom" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NBedroom"></label>
+        <input asp-for="NBedroom" class="form-control" />
+        <span asp-validation-for="NBedroom" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NBath"></label>
+        <input asp-for="NBath" class="form-control" />
+        <span asp-validation-for="NBath" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NLivingRoom"></label>
+        <input asp-for="NLivingRoom" class="form-control" />
+        <span asp-validation-for="NLivingRoom" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NReceptionRoom"></label>
+        <input asp-for="NReceptionRoom" class="form-control" />
+        <span asp-validation-for="NReceptionRoom" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NBalcone"></label>
+        <input asp-for="NBalcone" class="form-control" />
+        <span asp-validation-for="NBalcone" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NGarage"></label>
+        <input asp-for="NGarage" class="form-control" />
+        <span asp-validation-for="NGarage" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NKitchen"></label>
+        <input asp-for="NKitchen" class="form-control" />
+        <span asp-validation-for="NKitchen" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NFoodRoom"></label>
+        <input asp-for="NFoodRoom" class="form-control" />
+        <span asp-validation-for="NFoodRoom" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NDepot"></label>
+        <input asp-for="NDepot" class="form-control" />
+        <span asp-validation-for="NDepot" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ExtraFeatures"></label>
+        <textarea asp-for="ExtraFeatures" class="form-control"></textarea>
+        <span asp-validation-for="ExtraFeatures" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ForRent"></label>
+        <input asp-for="ForRent" type="checkbox" />
+        <span asp-validation-for="ForRent" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ForSale"></label>
+        <input asp-for="ForSale" type="checkbox" />
+        <span asp-validation-for="ForSale" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FormCover"></label>
+        <input asp-for="FormCover" type="file" class="form-control-file" />
+        <span asp-validation-for="FormCover" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FormFiles"></label>
+        <input asp-for="FormFiles" type="file" multiple class="form-control-file" />
+        <span asp-validation-for="FormFiles" class="text text-danger"> </span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
