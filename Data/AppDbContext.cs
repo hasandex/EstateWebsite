@@ -10,7 +10,7 @@ namespace EstateWebsite.Data
         {
             
         }
-        public DbSet<Home> Homes { get; set; }
-        public DbSet<HomeImages> HomeImages { get; set; }
+        public DbSet<Estate> Estates { get; set; }
+        public DbSet<EstateImages> EstateImages { get; set; }
     }
 }

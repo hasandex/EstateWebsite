@@ -1,6 +1,8 @@
-﻿namespace EstateWebsite.ViewModel
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace EstateWebsite.ViewModel
 {
-    public class BaseHomeVM
+    public class BaseEstateVM
     {
         public string Governorate { get; set; }
         public string City { get; set; }
@@ -38,5 +40,10 @@
         public bool IsApproved { get; set; } = false;
         public bool ForRent { get; set; } = false;
         public bool ForSale { get; set; } = false;
+        public Category Category { get; set; }
+        public MethodPay MethodPay { get; set; }
+        public IEnumerable<SelectListItem> SelectCategory { get; set; } = Enumerable.Empty<SelectListItem>();
+        public IEnumerable<SelectListItem> SelectMethodPay { get; set; } = Enumerable.Empty<SelectListItem>();
+
     }
 }

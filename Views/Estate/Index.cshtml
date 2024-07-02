@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Estate>
+@{
+    ViewData["Title"] = "Estate Page";
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-danger">
+        <p>No Estates Yet!</p>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Estate</th>
+                <th>Price</th>
+
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var estate in Model)
+            {
+                <tr>
+                    <td>@estate.Id</td
+                    <td>@estate.Price</td>
+                    <td><a asp-action="Update" asp-route-estateId="@estate.Id">edit</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

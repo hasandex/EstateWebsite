@@ -5,7 +5,7 @@
 }
 
 <form asp-action="Update" asp-controller="Estate" method="post" enctype="multipart/form-data">
-   <input hidden asp-for="@Model.Id" />
+    <input hidden asp-for="@Model.Id" />
     <div class="form-group">
         <label asp-for="Governorate"></label>
         <input asp-for="Governorate" class="form-control" />
@@ -16,6 +16,12 @@
         <select asp-for="Category" class="form-select" asp-items="@Model.SelectCategory">
         </select>
         <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MethodPay" class="form-label mt-4"></label>
+        <select asp-for="MethodPay" class="form-select" asp-items="@Model.SelectMethodPay">
+        </select>
+        <span asp-validation-for="MethodPay" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="City"></label>

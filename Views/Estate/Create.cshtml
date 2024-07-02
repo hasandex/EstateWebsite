@@ -1,11 +1,10 @@
-﻿@model UpdateEstateVM
+﻿@model CreateEstateVM
 
 @{
-    ViewData["Ttile"] = "Update an Estate";
+    ViewData["Ttile"] = "Create a Home";
 }
 
-<form asp-action="Update" asp-controller="Estate" method="post" enctype="multipart/form-data">
-   <input hidden asp-for="@Model.Id" />
+<form asp-action="Create" asp-controller="Estate" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Governorate"></label>
         <input asp-for="Governorate" class="form-control" />
@@ -17,6 +16,13 @@
         </select>
         <span asp-validation-for="Category" class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="MethodPay" class="form-label mt-4"></label>
+        <select asp-for="MethodPay" class="form-select" asp-items="@Model.SelectMethodPay">
+        </select>
+        <span asp-validation-for="MethodPay" class="text-danger"></span>
+    </div>
+
     <div class="form-group">
         <label asp-for="City"></label>
         <input asp-for="City" class="form-control" />
@@ -117,16 +123,15 @@
         <input asp-for="ForSale" type="checkbox" />
         <span asp-validation-for="ForSale" class="text text-danger"> </span>
     </div>
-    <div>
-        <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Cover))" style="height:100%; width: 100%;" alt="profile">
-    </div>
     <div class="form-group">
         <label asp-for="FormCover"></label>
         <input asp-for="FormCover" type="file" class="form-control-file" />
         <span asp-validation-for="FormCover" class="text text-danger"> </span>
     </div>
+    <div class="form-group">
+        <label asp-for="FormFiles"></label>
+        <input asp-for="FormFiles" type="file" multiple class="form-control-file" />
+        <span asp-validation-for="FormFiles" class="text text-danger"> </span>
+    </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
-<div>
-    <a asp-action="UpdateEstateImages" asp-route-estateId="@Model.Id">show estate images</a>
-</div>

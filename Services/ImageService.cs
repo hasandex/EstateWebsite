@@ -1,4 +1,6 @@
 ﻿
+using EstateWebsite.Models;
+
 namespace EstateWebsite.Services
 {
     public class ImageService : IImageService
@@ -12,6 +14,13 @@ namespace EstateWebsite.Services
         public string GetImagePath(string image)
         {
             return Path.Combine($"{_webHostEnvironment.WebRootPath}{Settings.imagesPath}", image);
+        }
+
+        public byte[] SaveImageInDatabase(IFormFile file)
+        {
+            MemoryStream stream = new MemoryStream();
+            file.CopyTo(stream);
+            return stream.ToArray();
         }
 
         public string SaveImgInServer(IFormFile file)

@@ -1,10 +1,9 @@
 ﻿
 namespace EstateWebsite.Models
 {
-    public class Home
+    public class Estate
     {
         public int Id { get; set; }
-        [ForeignKey("User")]
         public string UserId { get; set; }
         public string Governorate { get; set; }
         public string City { get; set; }
@@ -43,9 +42,26 @@ namespace EstateWebsite.Models
         public bool IsApproved { get; set; } = false;
         public bool ForRent { get; set; } = false;
         public bool ForSale { get; set; } = false;
+        public Category Category { get; set; }
+        public MethodPay MethodPay { get; set; }
 
         //navigation
-        public ICollection<HomeImages>? HomeImages { get; set; }
+        public ICollection<EstateImages>? EstateImages { get; set; }
 
+    }
+
+    public enum Category
+    {
+        appartement,
+        house,
+        villa,
+        farm,
+        office
+    }
+    public enum MethodPay
+    {
+        VisaCard,
+        MasterCard,
+        PayPal
     }
 }

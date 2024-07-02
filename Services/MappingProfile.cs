@@ -5,14 +5,14 @@ namespace EstateWebsite.Services
     {
         public MappingProfile()
         {
-            CreateMap<CreateHomeVM, Home>()
+            CreateMap<CreateEstateVM, Estate>()
                 .ForMember(src => src.Cover, opt => opt.Ignore())
                 .ForMember(src => src.UserId, opt => opt.Ignore());
 
-            CreateMap<UpdateHomeVM, Home>()
+            CreateMap<UpdateEstateVM, Estate>()
                 .ForMember(src => src.Cover, opt => opt.Ignore())
                 .ForMember(src => src.UserId, opt => opt.Ignore());
-            CreateMap<Home, UpdateHomeVM>()
+            CreateMap<Estate, UpdateEstateVM>()
                 .ForMember(dest => dest.Cover, opt => opt.MapFrom(src => src.Cover));
         }
     }

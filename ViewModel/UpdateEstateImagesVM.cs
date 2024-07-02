@@ -1,6 +1,6 @@
 ﻿namespace EstateWebsite.ViewModel
 {
-    public class UpdateHomeImagesVM
+    public class UpdateEstateImagesVM
     {
         public int Id { get; set; }
         public List<IFormFile>? FormFiles { get; set; }

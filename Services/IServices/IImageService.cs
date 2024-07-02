@@ -4,5 +4,6 @@
     {
        string SaveImgInServer(IFormFile file);
        string GetImagePath(string image);
+       byte[] SaveImageInDatabase(IFormFile file);
     }
 }

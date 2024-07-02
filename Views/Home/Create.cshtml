@@ -1,15 +1,22 @@
-﻿@model CreateHomeVM
+﻿@model CreateEstateVM
 
 @{
     ViewData["Ttile"] = "Create a Home";
 }
 
-<form asp-action="Create" asp-controller="Home" method="post" enctype="multipart/form-data">
+<form asp-action="Create" asp-controller="Estate" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Governorate"></label>
         <input asp-for="Governorate" class="form-control" />
         <span asp-validation-for="Governorate" class="text text-danger"> </span>
     </div>
+    <div class="form-group">
+        <label asp-for="Category" class="form-label mt-4"></label>
+        <select asp-for="Category" class="form-select" asp-items="@Model.SelectCategory">
+        </select>
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+    
     <div class="form-group">
         <label asp-for="City"></label>
         <input asp-for="City" class="form-control" />

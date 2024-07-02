@@ -4,6 +4,7 @@ using EstateWebsite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EstateWebsite.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702034014_addCategory")]
+    partial class addCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace EstateWebsite.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("EstateWebsite.Models.Estate", b =>
+            modelBuilder.Entity("EstateWebsite.Models.Home", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,9 +62,6 @@ namespace EstateWebsite.Migrations
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
-
-                    b.Property<int>("MethodPay")
-                        .HasColumnType("int");
 
                     b.Property<int>("NBalcone")
                         .HasColumnType("int");
@@ -115,10 +115,10 @@ namespace EstateWebsite.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Estates");
+                    b.ToTable("Homes");
                 });
 
-            modelBuilder.Entity("EstateWebsite.Models.EstateImages", b =>
+            modelBuilder.Entity("EstateWebsite.Models.HomeImages", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +126,7 @@ namespace EstateWebsite.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("EstateId")
+                    b.Property<int>("HomeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Path")
@@ -135,9 +135,9 @@ namespace EstateWebsite.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstateId");
+                    b.HasIndex("HomeId");
 
-                    b.ToTable("EstateImages");
+                    b.ToTable("HomeImages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -342,15 +342,15 @@ namespace EstateWebsite.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EstateWebsite.Models.EstateImages", b =>
+            modelBuilder.Entity("EstateWebsite.Models.HomeImages", b =>
                 {
-                    b.HasOne("EstateWebsite.Models.Estate", "Estate")
-                        .WithMany("EstateImages")
-                        .HasForeignKey("EstateId")
+                    b.HasOne("EstateWebsite.Models.Home", "Home")
+                        .WithMany("HomeImages")
+                        .HasForeignKey("HomeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Estate");
+                    b.Navigation("Home");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -404,9 +404,9 @@ namespace EstateWebsite.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EstateWebsite.Models.Estate", b =>
+            modelBuilder.Entity("EstateWebsite.Models.Home", b =>
                 {
-                    b.Navigation("EstateImages");
+                    b.Navigation("HomeImages");
                 });
 #pragma warning restore 612, 618
         }
