@@ -4,6 +4,7 @@ namespace EstateWebsite.Models
     public class Estate
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public string UserId { get; set; }
         public string Governorate { get; set; }
         public string City { get; set; }
@@ -44,6 +45,8 @@ namespace EstateWebsite.Models
         public bool ForSale { get; set; } = false;
         public Category Category { get; set; }
         public MethodPay MethodPay { get; set; }
+        public LegalType LegalType { get; set; }
+        public CompleteBuildingState CompleteBuildingState { get; set; }
 
         //navigation
         public ICollection<EstateImages>? EstateImages { get; set; }
@@ -64,4 +67,19 @@ namespace EstateWebsite.Models
         MasterCard,
         PayPal
     }
+    public enum LegalType
+    {
+        Green,
+        White,
+        Endowments,
+        Agriculture,
+        Violation
+    }
+    public enum CompleteBuildingState
+    {
+        UnderConstruction,
+        MidComplete,
+        Complete
+    }
+
 }

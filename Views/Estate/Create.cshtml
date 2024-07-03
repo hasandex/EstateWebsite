@@ -6,6 +6,11 @@
 
 <form asp-action="Create" asp-controller="Estate" method="post" enctype="multipart/form-data">
     <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text text-danger"> </span>
+    </div>
+    <div class="form-group">
         <label asp-for="Governorate"></label>
         <input asp-for="Governorate" class="form-control" />
         <span asp-validation-for="Governorate" class="text text-danger"> </span>

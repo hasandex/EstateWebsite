@@ -4,6 +4,7 @@ namespace EstateWebsite.ViewModel
 {
     public class BaseEstateVM
     {
+        public string Name { get; set; }
         public string Governorate { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
@@ -42,8 +43,11 @@ namespace EstateWebsite.ViewModel
         public bool ForSale { get; set; } = false;
         public Category Category { get; set; }
         public MethodPay MethodPay { get; set; }
+        public LegalType LegalType { get; set; }
+        public CompleteBuildingState CompleteBuildingState { get; set; }
         public IEnumerable<SelectListItem> SelectCategory { get; set; } = Enumerable.Empty<SelectListItem>();
         public IEnumerable<SelectListItem> SelectMethodPay { get; set; } = Enumerable.Empty<SelectListItem>();
-
+        public IEnumerable<SelectListItem> SelectLegalType { get; set; } = Enumerable.Empty<SelectListItem>();
+        public IEnumerable<SelectListItem> SelectCompleteBuildingState { get; set; } = Enumerable.Empty<SelectListItem>();
     }
 }

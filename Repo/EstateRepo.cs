@@ -123,5 +123,11 @@ namespace EstateWebsite.Repo
             }
             return null;
         }
+
+        public IEnumerable<Estate> GetByCategory(Category category)
+        {
+            return _context.Estates?.Include(e=> e.EstateImages)
+                .Where(e=>e.Category == category).AsNoTracking().ToList();
+        }
     }
 }

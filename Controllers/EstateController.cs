@@ -34,6 +34,8 @@ namespace EstateWebsite.Controllers
             {
                 SelectCategory = GetEnumSelectList<Category>(),
                 SelectMethodPay = GetEnumSelectList<MethodPay>(),
+                SelectLegalType = GetEnumSelectList<LegalType>(),
+                SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>(),
             };
             return View(viewModel);
         }
@@ -42,6 +44,11 @@ namespace EstateWebsite.Controllers
         {
             if (!ModelState.IsValid)
             {
+                viewModel.SelectCategory = GetEnumSelectList<Category>();
+                viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
+                viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
+                viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
+           
                 return View(viewModel);
             }
             var isAdded = _estateRepo.Create(viewModel);
@@ -59,6 +66,8 @@ namespace EstateWebsite.Controllers
             var viewModel = _mapper.Map<UpdateEstateVM>(estate);
             viewModel.SelectCategory = GetEnumSelectList<Category>();
             viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
+            viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
+            viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
             return View(viewModel);
         }
 
@@ -69,6 +78,8 @@ namespace EstateWebsite.Controllers
             {
                 viewModel.SelectCategory = GetEnumSelectList<Category>();
                 viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
+                viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
+                viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
                 return View(viewModel);
             }
             var isUpdated = _estateRepo.Update(viewModel);

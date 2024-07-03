@@ -116,6 +116,9 @@ namespace EstateWebsite.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CompleteBuildingState")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("Cover")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -135,6 +138,9 @@ namespace EstateWebsite.Migrations
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
+
+                    b.Property<int>("LegalType")
+                        .HasColumnType("int");
 
                     b.Property<int>("MethodPay")
                         .HasColumnType("int");
@@ -171,6 +177,10 @@ namespace EstateWebsite.Migrations
 
                     b.Property<int>("NRoom")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");

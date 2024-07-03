@@ -12,5 +12,6 @@ namespace EstateWebsite.Repo.IRepo
         int Update(UpdateEstateVM viewModel);
         int UpdateEstateImages(UpdateEstateImagesVM viewModel);
         int DeleteEstateImage(int estateId, string image);
+        IEnumerable<Estate> GetByCategory(Category category);
     }
 }
