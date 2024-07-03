@@ -11,3 +11,6 @@ global using EstateWebsite.Services;
 global using EstateWebsite.Services.IServices;
 global using EstateWebsite.ViewModel;
 global using AutoMapper;
+global using System.Net.Mail;
+global using System.Net;
+global using Microsoft.AspNetCore.Identity.UI.Services;

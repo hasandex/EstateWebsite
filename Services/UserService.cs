@@ -5,9 +5,9 @@ namespace EstateWebsite.Services
     public class UserService : IUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public UserService(IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager)
+        public UserService(IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager)
         {
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;

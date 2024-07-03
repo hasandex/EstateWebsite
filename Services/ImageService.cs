@@ -28,7 +28,7 @@ namespace EstateWebsite.Services
             var fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}";
             var path = Path.Combine($"{_webHostEnvironment.WebRootPath}{Settings.imagesPath}", fileName);
             using var stream = File.Create(path);
-            file.CopyToAsync(stream);
+            file.CopyTo(stream);
             return fileName;
         }
     }

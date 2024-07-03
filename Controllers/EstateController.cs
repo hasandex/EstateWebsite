@@ -57,16 +57,8 @@ namespace EstateWebsite.Controllers
                 return BadRequest();
             }
             var viewModel = _mapper.Map<UpdateEstateVM>(estate);
-
-            var categories = Enum.GetValues(typeof(Category)).Cast<Category>().ToList();
-            var categoryItems = categories.Select((c, i) => new SelectListItem
-            {
-                Value = i.ToString(),
-                Text = c.ToString()
-            }).ToList();
             viewModel.SelectCategory = GetEnumSelectList<Category>();
             viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
-
             return View(viewModel);
         }
 
