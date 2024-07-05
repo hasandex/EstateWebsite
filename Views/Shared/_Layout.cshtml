@@ -9,6 +9,12 @@
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
+    <!-- Sweet-Alert2 -->
+    <link href="~/lib/sweetalert2/sweetalert2.min.css" rel="stylesheet" />
+    <!-- Bootstrap-Icons -->
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,8 +61,8 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Choise</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a asp-action="Create" asp-controller="Estate" class="dropdown-item">Sell Your Property</a>
-                                <a asp-action="Create" asp-controller="Estate" class="dropdown-item">Rent Your Property</a>
+                                <a asp-action="Index" asp-controller="Estate" class="dropdown-item">Estates</a>
+                                <a asp-action="Create" asp-controller="Estate" class="dropdown-item">Create</a>
                                 <a asp-action="Index" asp-controller="Estate" class="dropdown-item">Manage Your Properties</a>
                             </div>
                         </div>
@@ -164,12 +170,16 @@
     <!-- JavaScript Libraries -->
     <script src="~/theme/js/jquery-3.4.1.min.js"></script>
     <script src="~/theme/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
     <script src="~/theme/lib/wow/wow.min.js"></script>
     <script src="~/theme/lib/easing/easing.min.js"></script>
     <script src="~/theme/lib/waypoints/waypoints.min.js"></script>
     <script src="~/theme/lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Template Javascript -->
+    <!-- data-tables->
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>    <!-- Template Javascript -->
     <script src="~/theme/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

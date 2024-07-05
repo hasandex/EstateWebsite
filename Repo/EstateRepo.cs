@@ -1,4 +1,5 @@
 ﻿
+using EstateWebsite.Models;
 using EstateWebsite.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 
@@ -128,6 +129,48 @@ namespace EstateWebsite.Repo
         {
             return _context.Estates?.Include(e=> e.EstateImages)
                 .Where(e=>e.Category == category).AsNoTracking().ToList();
+        }
+
+        public IEnumerable<Estate> GetEstateForRent()
+        {
+            return _context.Estates?.Include(e => e.EstateImages)
+                .Where(e => e.ForRent == true).AsNoTracking().ToList();
+        }
+
+        public IEnumerable<Estate> GetEstateForSell()
+        {
+            return _context.Estates?.Include(e => e.EstateImages)
+                .Where(e => e.ForSale == true).AsNoTracking().ToList();
+        }
+
+        public int Delete(int estateId)
+        {
+            var estate = GetById(estateId);
+            if (estate == null)
+                return 0;
+            if(estate.EstateImages != null)
+            {
+                foreach (var img in estate.EstateImages)
+                {
+                    var estatetImages = _imageService.GetImagePath(img.Path);
+                    File.Delete(estatetImages);
+                }
+            }
+            _context.Remove(estate);
+            return _context.SaveChanges();
+        }
+
+        public IEnumerable<Estate> SearchByName(string searchName)
+        {
+            return _context.Estates?.Include(e => e.EstateImages)
+              .Where(p => p.Name.ToLower().Contains(searchName.ToLower()));
+        }
+
+        public int CountEstates(IEnumerable<Estate> estates)
+        {
+            if(estates == null)
+                return 0;
+            return estates.Count(); 
         }
     }
 }

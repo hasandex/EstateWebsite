@@ -5,6 +5,9 @@ namespace EstateWebsite.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string OwnerName { get; set; }
+        [Phone]
+        public string OwnerPhone { get; set; }
         public string UserId { get; set; }
         public string Governorate { get; set; }
         public string City { get; set; }

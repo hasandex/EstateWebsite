@@ -5,6 +5,9 @@ namespace EstateWebsite.ViewModel
     public class BaseEstateVM
     {
         public string Name { get; set; }
+        public string OwnerName { get; set; }
+        [Phone]
+        public string OwnerPhone { get; set; }
         public string Governorate { get; set; }
         public string City { get; set; }
         public string Street { get; set; }

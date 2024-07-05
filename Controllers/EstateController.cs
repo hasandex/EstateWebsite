@@ -118,6 +118,16 @@ namespace EstateWebsite.Controllers
             }
             return BadRequest();
         }
+        public IActionResult Delete(int id)
+        {
+            var isDeleted = _estateRepo.Delete(id);
+            if (isDeleted == 0)
+            {
+                return BadRequest();
+            }
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult DeleteEstateImage(int estateId, string image)
         {
