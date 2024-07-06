@@ -21,12 +21,51 @@ namespace EstateWebsite.Controllers
                 Value = i.ToString(),
                 Text = e.ToString()
             }).ToList();
-
             return selectList;
         }
         public IActionResult Index()
         {
-            return View(_estateRepo.GetEstates());
+           return View(_estateRepo.GetEstates());
+        }
+        public IActionResult Explore(string? forSale, string? forRent, string? searchName, [FromQuery] Category? categoryName,
+            [FromQuery] Governorate? governorate , int? minPrice, int? maxPrice)
+        {
+            var estates = _estateRepo.GetEstates();
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                estates = _estateRepo.SearchByName(searchName);
+            }
+            if (categoryName.HasValue)
+            {
+                estates = estates.Where(p => p.Category == categoryName.Value).ToList();
+            }
+            if (governorate.HasValue)
+            {
+                estates = estates.Where(p => p.Governorate == governorate.Value).ToList();
+            }
+            if (minPrice.HasValue && maxPrice.HasValue)
+            {
+                estates = estates.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
+            }
+            if(forSale == "forSale")
+            {
+                estates = estates.Where(p => p.ForSale == true).ToList();
+            }
+            if(forRent == "forRent")
+            {
+                estates = estates.Where(p => p.ForRent == true).ToList();
+            }
+            ViewBag.selectCategories = GetEnumSelectList<Category>();
+            ViewBag.selectGovernorate = GetEnumSelectList<Governorate>();
+            //now we will get the user's inputs to display them in their boxes
+            ViewBag.category = categoryName;
+            ViewBag.governorate = governorate;
+            ViewBag.minPrice = minPrice;
+            ViewBag.maxPrice = maxPrice;
+            ViewBag.searchName = searchName;
+            ViewBag.forSale = forSale;
+            ViewBag.forRent = forRent;
+            return View(estates);
         }
         public IActionResult Create()
         {
@@ -122,6 +161,12 @@ namespace EstateWebsite.Controllers
             }
             return BadRequest();
         }
+        public IActionResult Detail(int estateId)
+        {
+            var estate = _estateRepo.GetById(estateId);
+            return View(estate);
+        }
+
         public IActionResult Delete(int id)
         {
             var isDeleted = _estateRepo.Delete(id);

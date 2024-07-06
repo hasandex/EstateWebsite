@@ -14,3 +14,4 @@ global using AutoMapper;
 global using System.Net.Mail;
 global using System.Net;
 global using Microsoft.AspNetCore.Identity.UI.Services;
+global using System.Text.Json.Serialization;
