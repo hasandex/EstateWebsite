@@ -1,4 +1,7 @@
 ﻿
+using System.ComponentModel;
+using System.Runtime.Serialization;
+
 namespace EstateWebsite.Models
 {
     public class Estate
@@ -9,7 +12,6 @@ namespace EstateWebsite.Models
         [Phone]
         public string OwnerPhone { get; set; }
         public string UserId { get; set; }
-        public string Governorate { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public double longitude { get; set; }
@@ -50,6 +52,7 @@ namespace EstateWebsite.Models
         public MethodPay MethodPay { get; set; }
         public LegalType LegalType { get; set; }
         public CompleteBuildingState CompleteBuildingState { get; set; }
+        public Governorate Governorate { get; set; }
 
         //navigation
         public ICollection<EstateImages>? EstateImages { get; set; }
@@ -84,5 +87,21 @@ namespace EstateWebsite.Models
         MidComplete,
         Complete
     }
-
+    public enum Governorate
+    {
+        Aleppo,
+        Damascus,
+        Daraa,
+        Deir_ez_Zor,
+        Hama,
+        Hasakah,
+        Homs,
+        Idlib,
+        Latakia,
+        Quneitra,
+        Raqqah,
+        Rif_Dimashq,
+        Suwayda,
+        Tartus,
+    }
 }

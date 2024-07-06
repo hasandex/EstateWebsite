@@ -13,8 +13,9 @@
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="Governorate"></label>
-                <input asp-for="Governorate" type="text" class="form-control" id=" " placeholder=" " />
-                <span asp-validation-for="Governorate" class="text text-danger"> </span>
+                <select asp-for="Governorate" class="form-select" asp-items="@Model.SelectGovernorate">
+                </select>
+                <span asp-validation-for="Governorate" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="City"></label>
@@ -228,12 +229,12 @@
                     <div class="row">
                         <div class="form-group col-md-6 col-lg-3 mb-2">
                             <label asp-for="longitude">  </label>
-                            <input id="lat" name="latcord" asp-for="longitude" class="form-control " style="margin-right:1rem;" />
+                            <input id="lat" asp-for="longitude" class="form-control " style="margin-right:1rem;" />
                             <span asp-validation-for="longitude" class="text text-danger"> </span>
                         </div>
                         <div class="form-group col-md-6 col-lg-3  mb-2">
                             <label asp-for="latitude"></label>
-                            <input id="long" name="longcord" asp-for="latitude" class="form-control" />
+                            <input id="long" asp-for="latitude" class="form-control" />
                             <span asp-validation-for="latitude" class="text text-danger"> </span>
                         </div>
                     </div>
@@ -280,9 +281,9 @@
         ///////////////Converting the C# Model to JS model
         // convsert the data base table to Array in json type
         var myHome = @Html.Raw(Json.Serialize(Model));
-        var location = new Microsoft.Maps.Location(myHome.latitude, myHome.longitude);
+        var location = new Microsoft.Maps.Location(myHome.longitude, myHome.latitude);
         var pin = new Microsoft.Maps.Pushpin(location, {
-            color: 'blue',
+            color: 'green',
             title: 'My Home',
         });
         map.entities.push(pin);

@@ -8,7 +8,6 @@ namespace EstateWebsite.ViewModel
         public string OwnerName { get; set; }
         [Phone]
         public string OwnerPhone { get; set; }
-        public string Governorate { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public double longitude { get; set; }
@@ -47,10 +46,12 @@ namespace EstateWebsite.ViewModel
         public Category Category { get; set; }
         public MethodPay MethodPay { get; set; }
         public LegalType LegalType { get; set; }
+        public Governorate Governorate { get; set; }
         public CompleteBuildingState CompleteBuildingState { get; set; }
         public IEnumerable<SelectListItem> SelectCategory { get; set; } = Enumerable.Empty<SelectListItem>();
         public IEnumerable<SelectListItem> SelectMethodPay { get; set; } = Enumerable.Empty<SelectListItem>();
         public IEnumerable<SelectListItem> SelectLegalType { get; set; } = Enumerable.Empty<SelectListItem>();
         public IEnumerable<SelectListItem> SelectCompleteBuildingState { get; set; } = Enumerable.Empty<SelectListItem>();
+        public IEnumerable<SelectListItem> SelectGovernorate { get; set; } = Enumerable.Empty<SelectListItem>();
     }
 }

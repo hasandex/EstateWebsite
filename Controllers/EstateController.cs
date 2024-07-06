@@ -36,6 +36,7 @@ namespace EstateWebsite.Controllers
                 SelectMethodPay = GetEnumSelectList<MethodPay>(),
                 SelectLegalType = GetEnumSelectList<LegalType>(),
                 SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>(),
+                SelectGovernorate = GetEnumSelectList<Governorate>(),
             };
             return View(viewModel);
         }
@@ -48,6 +49,7 @@ namespace EstateWebsite.Controllers
                 viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
                 viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
                 viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
+                viewModel.SelectGovernorate = GetEnumSelectList<Governorate>();
            
                 return View(viewModel);
             }
@@ -68,6 +70,7 @@ namespace EstateWebsite.Controllers
             viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
             viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
             viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
+            viewModel.SelectGovernorate = GetEnumSelectList<Governorate>();
             return View(viewModel);
         }
 
@@ -80,6 +83,7 @@ namespace EstateWebsite.Controllers
                 viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
                 viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
                 viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
+                viewModel.SelectGovernorate = GetEnumSelectList<Governorate>();
                 return View(viewModel);
             }
             var isUpdated = _estateRepo.Update(viewModel);
