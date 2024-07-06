@@ -109,7 +109,6 @@ namespace EstateWebsite.Areas.Identity.Pages.Account
             [Phone]
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
-            public bool IsSeller { get; set; }
         }
 
 
@@ -137,14 +136,7 @@ namespace EstateWebsite.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    if (Input.IsSeller == true)
-                    {
-                        await _userManager.AddToRoleAsync(user, ClsRoles.roleSeller);
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, ClsRoles.roleUser);
-                    }
+                    await _userManager.AddToRoleAsync(user, ClsRoles.roleUser);
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

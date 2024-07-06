@@ -20,7 +20,12 @@ namespace EstateWebsite.Repo
         }
         public IEnumerable<Estate> GetEstates()
         {
-            return _context.Estates.ToList();
+            return _context.Estates?.Include(e=>e.EstateImages).ToList();
+        }
+        public IEnumerable<Estate> GetEstates(string userId)
+        {
+            return _context.Estates?.Include(e => e.EstateImages)
+                .Where(e=>e.UserId == userId).ToList();
         }
         public IEnumerable<EstateImages> GetAllImages(int estateId)
         {

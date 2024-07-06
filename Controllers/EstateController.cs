@@ -1,17 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EstateWebsite.Controllers
 {
+    [Authorize]
     public class EstateController : Controller
     {
         private readonly IEstateRepo _estateRepo;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public EstateController( IEstateRepo estateRepo, IMapper mapper)
+        public EstateController( IEstateRepo estateRepo, IMapper mapper, IUserService userService)
         {
             _estateRepo = estateRepo;
             _mapper = mapper;
+            _userService = userService;
         }
         public static List<SelectListItem> GetEnumSelectList<T>()
         {
@@ -25,8 +29,10 @@ namespace EstateWebsite.Controllers
         }
         public IActionResult Index()
         {
-           return View(_estateRepo.GetEstates());
+            var userId = _userService.GetUserId();
+           return View(_estateRepo.GetEstates(_userService.GetUserId()));
         }
+        [AllowAnonymous]
         public IActionResult Explore(string? forSale, string? forRent, string? searchName, [FromQuery] Category? categoryName,
             [FromQuery] Governorate? governorate , int? minPrice, int? maxPrice)
         {

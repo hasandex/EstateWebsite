@@ -6,6 +6,7 @@ namespace EstateWebsite.Repo.IRepo
     public interface IEstateRepo
     {
         IEnumerable<Estate> GetEstates();
+        IEnumerable<Estate> GetEstates(string userId);
         IEnumerable<EstateImages> GetAllImages(int estateId);
         Estate GetById(int estateId);
         int Create(CreateEstateVM viewModel);

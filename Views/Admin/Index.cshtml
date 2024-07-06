@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Estate>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Estates";
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        <h3>No Estates in our system</h3>
+    </div>
+}
+else
+{
+    <table class="table" id="page">
+        <thead>
+        <th>User</th>
+        <th>Estate</th>
+        <th>Status</th>
+
+        </thead>
+        <tbody>
+            @foreach (var estate in Model)
+            {
+                
+                var user = await UserManager.FindByIdAsync(estate.UserId);
+                
+                <tr>
+                    <td>@user.FName</td>
+                    <td>
+                        <a asp-controller="Estate" asp-action="Detail" asp-route-estateId="@estate.Id">
+                            @estate.Name
+                        </a>
+                    </td>
+                    @if (estate.IsApproved == true )
+                    {
+                        <td class="text-success">
+                            Approved
+                        </td>
+                    }
+                    else if (estate.IsApproved == false)
+                    {
+                        <td class="text-danger">
+                            not approved
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}

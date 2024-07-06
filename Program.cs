@@ -24,6 +24,7 @@ builder.Services.AddScoped<IEstateRepo, EstateRepo>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmailSender, EmailService>();
+builder.Services.AddScoped<IUserRepo,UserRepo>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 
