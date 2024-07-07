@@ -154,6 +154,62 @@
 
         </div>
     </div>
+    <!-- comments area -->
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-6 col-sm-12">
+                <form asp-controller="User" asp-action="AddComment" method="post">
+                    <textarea id="inputField" class="form-control" aria-label="With textarea" name="Content" style="border:none ;width: 50%; vertical-align:top;" placeholder="add comment"></textarea>
+                    <input type="hidden" name="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
+                    <input type="hidden" name="EstateId" class="form-control" value="@Model.Id" />
+                    <button id="submitButton" type="submit" class="btn btn-success btn-sm" style="display: inline-block; margin-top:10px;">Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-md-6 col-sm-12">
+                <h4>Comments</h4>
+                @if (Model != null && Model.Comments != null && Model.Comments.Any())
+                {
+                    @foreach (var comment in Model.Comments)
+                    {
+                        var user = await UserManager.FindByIdAsync(comment.UserId);
+                        <input id="commentId" hidden value="@comment.Id" />
+                        <div class="overflow-hidden d-flex mt-4" style="gap:10px; width: 100%;">
+                            <div style="width: 50px;height: 50px;border-radius: 50%;overflow: hidden;border: 3px solid white;flex-shrink: 0;">
+                                @if (user.ProfilePicture != null)
+                                {
+                                    <img src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" style="height:100%; width: 100%;" alt="profile">
+                                }
+                                else
+                                {
+                                    <img src="~/assets/cover.png" style="height:100%; width: 100%;" alt="profile">
+                                }
+                            </div>
+                            <div class="w-50 d-flex" style="gap:40px">
+                                <p class="mt-1" style="word-break: break-all;">
+                                    <strong>@user.FName -</strong>
+                                    <span class="text-muted">@comment.CreatedDate.ToString("MMMM") @comment.CreatedDate.Year</span>
+                                    <br />
+                                    @comment.Content
+                                </p>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No comments available.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
 </div>
 
 
@@ -206,4 +262,19 @@
 
 
 
+</script>
+
+<script>
+    window.onload = function () {
+        const inputField = document.getElementById("inputField");
+        const submitButton = document.getElementById("submitButton");
+
+        // Disable the button initially
+        submitButton.disabled = true;
+
+        // Enable the button when the input field has a value
+        inputField.addEventListener("input", function () {
+            submitButton.disabled = inputField.value.trim() === "";
+        });
+    };
 </script>

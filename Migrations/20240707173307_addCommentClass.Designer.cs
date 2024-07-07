@@ -4,6 +4,7 @@ using EstateWebsite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EstateWebsite.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707173307_addCommentClass")]
+    partial class addCommentClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,7 +111,8 @@ namespace EstateWebsite.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -118,13 +122,15 @@ namespace EstateWebsite.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EstateId");
 
-                    b.ToTable("Comments");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("EstateWebsite.Models.Estate", b =>
@@ -400,12 +406,20 @@ namespace EstateWebsite.Migrations
             modelBuilder.Entity("EstateWebsite.Models.Comment", b =>
                 {
                     b.HasOne("EstateWebsite.Models.Estate", "Estate")
-                        .WithMany("Comments")
+                        .WithMany("Comment")
                         .HasForeignKey("EstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EstateWebsite.Models.AppUser", "User")
+                        .WithMany("Comment")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Estate");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EstateWebsite.Models.Estate", b =>
@@ -483,12 +497,14 @@ namespace EstateWebsite.Migrations
 
             modelBuilder.Entity("EstateWebsite.Models.AppUser", b =>
                 {
+                    b.Navigation("Comment");
+
                     b.Navigation("Estates");
                 });
 
             modelBuilder.Entity("EstateWebsite.Models.Estate", b =>
                 {
-                    b.Navigation("Comments");
+                    b.Navigation("Comment");
 
                     b.Navigation("EstateImages");
                 });

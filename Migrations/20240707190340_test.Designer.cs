@@ -4,6 +4,7 @@ using EstateWebsite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EstateWebsite.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707190340_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,35 +99,6 @@ namespace EstateWebsite.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("EstateWebsite.Models.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EstateId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EstateId");
-
-                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("EstateWebsite.Models.Estate", b =>
@@ -397,17 +371,6 @@ namespace EstateWebsite.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EstateWebsite.Models.Comment", b =>
-                {
-                    b.HasOne("EstateWebsite.Models.Estate", "Estate")
-                        .WithMany("Comments")
-                        .HasForeignKey("EstateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Estate");
-                });
-
             modelBuilder.Entity("EstateWebsite.Models.Estate", b =>
                 {
                     b.HasOne("EstateWebsite.Models.AppUser", "User")
@@ -488,8 +451,6 @@ namespace EstateWebsite.Migrations
 
             modelBuilder.Entity("EstateWebsite.Models.Estate", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("EstateImages");
                 });
 #pragma warning restore 612, 618

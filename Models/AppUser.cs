@@ -9,7 +9,8 @@
         public byte[]? ProfilePicture { get; set; }
 
         //navigation
-        public ICollection<Estate> Estates { get; set; }
+        public ICollection<Estate>? Estates { get; set; }
+        //public ICollection<Comment>? Comment { get; set; }
     }
 
 }

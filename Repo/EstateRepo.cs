@@ -20,11 +20,13 @@ namespace EstateWebsite.Repo
         }
         public IEnumerable<Estate> GetEstates()
         {
-            return _context.Estates?.Include(e=>e.EstateImages).ToList();
+            return _context.Estates?.Include(e=>e.EstateImages)
+                .Include(e =>e.Comments).ToList();
         }
         public IEnumerable<Estate> GetEstates(string userId)
         {
             return _context.Estates?.Include(e => e.EstateImages)
+                
                 .Where(e=>e.UserId == userId).ToList();
         }
         public IEnumerable<EstateImages> GetAllImages(int estateId)
@@ -48,8 +50,9 @@ namespace EstateWebsite.Repo
 
         public Estate GetById(int estateId)
         {
-            var home = _context.Estates?.Include(h => h.EstateImages)
-                .Where(h=>h.Id == estateId).AsNoTracking().SingleOrDefault();
+            var home = _context.Estates?.Include(e => e.EstateImages)
+                .Include(e => e.Comments)
+                .Where(e=>e.Id == estateId).AsNoTracking().SingleOrDefault();
             if (home == null)
             {
                 return null;
@@ -133,18 +136,21 @@ namespace EstateWebsite.Repo
         public IEnumerable<Estate> GetByCategory(Category category)
         {
             return _context.Estates?.Include(e=> e.EstateImages)
+               
                 .Where(e=>e.Category == category).AsNoTracking().ToList();
         }
 
         public IEnumerable<Estate> GetEstateForRent()
         {
             return _context.Estates?.Include(e => e.EstateImages)
+                
                 .Where(e => e.ForRent == true).AsNoTracking().ToList();
         }
 
         public IEnumerable<Estate> GetEstateForSell()
         {
             return _context.Estates?.Include(e => e.EstateImages)
+               
                 .Where(e => e.ForSale == true).AsNoTracking().ToList();
         }
 
@@ -168,6 +174,7 @@ namespace EstateWebsite.Repo
         public IEnumerable<Estate> SearchByName(string searchName)
         {
             return _context.Estates?.Include(e => e.EstateImages)
+              
               .Where(p => p.Name.ToLower().Contains(searchName.ToLower()));
         }
 
