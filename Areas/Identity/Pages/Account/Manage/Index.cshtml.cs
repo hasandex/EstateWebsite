@@ -58,6 +58,15 @@ namespace EstateWebsite.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "Profilr Picture")]
+            public byte[]? ProfilePicture { get; set; }
+            [Required]
+            [Display(Name = "First Name")]
+            public string FName { get; set; }
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LName { get; set; }
         }
 
         private async Task LoadAsync(AppUser user)
@@ -69,7 +78,10 @@ namespace EstateWebsite.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                ProfilePicture = user.ProfilePicture,
+                FName = user.FName,
+                LName = user.LName,
             };
         }
 
@@ -108,6 +120,28 @@ namespace EstateWebsite.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
+            }
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    user.ProfilePicture = dataStream.ToArray();
+                }
+                await _userManager.UpdateAsync(user);
+            }
+            var Fname = user.FName;
+            if (Input.FName != Fname)
+            {
+                user.FName = Input.FName;
+                await _userManager.UpdateAsync(user);
+            }
+            var Lname = user.LName;
+            if (Input.LName != Lname)
+            {
+                user.LName = Input.LName;
+                await _userManager.UpdateAsync(user);
             }
 
             await _signInManager.RefreshSignInAsync(user);

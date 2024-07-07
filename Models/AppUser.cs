@@ -7,6 +7,9 @@
         [NotMapped]
         public IFormFile? ProfilePictureFile { get; set; }
         public byte[]? ProfilePicture { get; set; }
+
+        //navigation
+        public ICollection<Estate> Estates { get; set; }
     }
 
 }

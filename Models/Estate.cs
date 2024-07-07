@@ -56,6 +56,7 @@ namespace EstateWebsite.Models
 
         //navigation
         public ICollection<EstateImages>? EstateImages { get; set; }
+        public AppUser User { get; set; }
 
     }
 
