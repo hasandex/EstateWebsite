@@ -9,13 +9,15 @@ namespace EstateWebsite.Controllers
     {
         private readonly IEstateRepo _estateRepo;
         private readonly IMapper _mapper;
+        private readonly ISaveProperty _saveProperty;
         private readonly IUserService _userService;
 
-        public EstateController( IEstateRepo estateRepo, IMapper mapper, IUserService userService)
+        public EstateController(IEstateRepo estateRepo, IMapper mapper, IUserService userService, ISaveProperty saveProperty)
         {
             _estateRepo = estateRepo;
             _mapper = mapper;
             _userService = userService;
+            _saveProperty = saveProperty;
         }
         public static List<SelectListItem> GetEnumSelectList<T>()
         {
@@ -167,9 +169,15 @@ namespace EstateWebsite.Controllers
             }
             return BadRequest();
         }
+        [AllowAnonymous]
         public IActionResult Detail(int estateId)
         {
             var estate = _estateRepo.GetById(estateId);
+            //this operation to check if the user saved this estate or not to display the specific icon (heart-fill or heart-empty)
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.savePropertyStatus = _saveProperty.GetByIdAndUser(estateId, _userService.GetUserId());
+            }
             return View(estate);
         }
 

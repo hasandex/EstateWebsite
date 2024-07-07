@@ -21,12 +21,13 @@ namespace EstateWebsite.Repo
         public IEnumerable<Estate> GetEstates()
         {
             return _context.Estates?.Include(e=>e.EstateImages)
-                .Include(e =>e.Comments).ToList();
+                .Include(e =>e.Comments).Include(e=>e.SaveEstates).ToList();
         }
         public IEnumerable<Estate> GetEstates(string userId)
         {
             return _context.Estates?.Include(e => e.EstateImages)
-                
+                .Include(e => e.Comments)
+                .Include(e => e.SaveEstates)
                 .Where(e=>e.UserId == userId).ToList();
         }
         public IEnumerable<EstateImages> GetAllImages(int estateId)

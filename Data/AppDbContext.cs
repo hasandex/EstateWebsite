@@ -13,6 +13,7 @@ namespace EstateWebsite.Data
         public DbSet<Estate> Estates { get; set; }
         public DbSet<EstateImages> EstateImages { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<SaveEstate> SaveEstates { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

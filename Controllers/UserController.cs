@@ -7,12 +7,14 @@ namespace EstateWebsite.Controllers
     public class UserController : Controller
     {
         private readonly ICommentRepo _commentRepo;
+        private readonly ISaveProperty _saveProperty;
         private readonly IUserService _userService;
-        public UserController(IUserService userService, ICommentRepo commentRepo)
+        public UserController(IUserService userService, ICommentRepo commentRepo, ISaveProperty saveProperty)
         {
 
             _userService = userService;
             _commentRepo = commentRepo;
+            _saveProperty = saveProperty;
         }
         public IActionResult Index()
         {
@@ -34,5 +36,38 @@ namespace EstateWebsite.Controllers
         //    _commentRepo.RemoveComment(commentId);
         //    return RedirectToAction("Detail", "Estate", new { estateId = commentId });
         //}
+        public IActionResult SaveProperty(int estateId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(ModelState);
+            }
+            var saved = _saveProperty.Save(estateId);
+            if(saved > 0)
+            {
+                return RedirectToAction("Detail", "Estate", new { estateId = estateId });
+            }
+            return BadRequest();
+        }
+        public IActionResult RemoveProperty(int estateId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(ModelState);
+            }
+            var saved = _saveProperty.Remove(estateId);
+            if (saved > 0)
+            {
+                return RedirectToAction("Detail", "Estate", new { estateId = estateId });
+            }
+            return BadRequest();
+        }
+
+        public IActionResult DisplaySaveEstates()
+        {
+            var savedEstates = _saveProperty.GetAllSavedEstates(_userService.GetUserId());
+            var x = 3;
+            return View(savedEstates);
+        }
     }
 }

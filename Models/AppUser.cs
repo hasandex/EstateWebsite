@@ -10,7 +10,7 @@
 
         //navigation
         public ICollection<Estate>? Estates { get; set; }
-        //public ICollection<Comment>? Comment { get; set; }
+        public ICollection<SaveEstate>? SaveEstates { get; set; }
     }
 
 }

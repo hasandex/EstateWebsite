@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SaveEstate>
+@{
+    ViewData["Title"] = "Saved Estates";
+}
+
+@if (!Model.Any())
+{
+    <div class="container alert alert-warning mt-5">
+
+        <h4 class="alert-heading ">No items !</h4>
+        <p class="mb-0">No Estates were added yet..</p>
+    </div>
+}
+else
+{
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-0 gx-5 align-items-end">
+                <div class="col-lg-6">
+                    <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                        <h1 class="mb-3">Property Listing</h1>
+                        <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        @foreach (var es in Model)
+                        {
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="property-item rounded overflow-hidden">
+                                    <div class="position-relative overflow-hidden">
+                                        <a asp-action="Detail" asp-route-estateId="@es.Estate.Id"><img class="img-fluid" src="data:image/*;base64,@(Convert.ToBase64String(es.Estate.Cover))"></a>
+                                        <div class="  rounded text-white position-absolute start-0 top-0">
+                                            @if (es.Estate.ForSale == true)
+                                            {
+                                                <div class="bg-primary rounded text-white m-2 py-1 px-3">For Sell</div>
+                                            }
+                                            @if (es.Estate.ForRent == true)
+                                            {
+                                                <div class="bg-primary rounded text-white m-2 py-1 px-3">For Rent</div>
+                                            }
+                                        </div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">@es.Estate.Category</div>
+                                    </div>
+                                    <div class="p-4 pb-0">
+                                        <h5 class="text-primary mb-3">$@es.Estate.Price</h5>
+                                        <a class="d-block h5 mb-2" href="">@es.Estate.Name</a>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>@es.Estate.Street, @es.Estate.City, @es.Estate.Governorate</p>
+                                    </div>
+                                    <div class="d-flex border-top">
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>@es.Estate.Area SqMeter</small>
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>@es.Estate.NFloor Floor</small>
+                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>@es.Estate.NRoom Room</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
