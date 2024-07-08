@@ -173,12 +173,14 @@
     <div class="container">
         <div class="row mt-4">
             <div class="col-md-6 col-sm-12">
+                <!-- add comment -->
                 <form asp-controller="User" asp-action="AddComment" method="post">
                     <textarea id="inputField" class="form-control" aria-label="With textarea" name="Content" style="border:none ;width: 50%; vertical-align:top;" placeholder="add comment"></textarea>
                     <input type="hidden" name="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
                     <input type="hidden" name="EstateId" class="form-control" value="@Model.Id" />
                     <button id="submitButton" type="submit" class="btn btn-success btn-sm" style="display: inline-block; margin-top:10px;">Comment</button>
                 </form>
+                <!-- end of add comment -->
             </div>
         </div>
     </div>
@@ -192,8 +194,9 @@
                     @foreach (var comment in Model.Comments)
                     {
                         var user = await UserManager.FindByIdAsync(comment.UserId);
-                        <input id="commentId" hidden value="@comment.Id" />
-                        <div class="overflow-hidden d-flex mt-4" style="gap:10px; width: 100%;">
+                        
+                        <div id="comment-@(comment.Id)" class="overflow-hidden d-flex mt-4" style="gap:10px; width: 100%;">
+                            <input id="commentId" hidden value="@comment.Id" />
                             <div style="width: 50px;height: 50px;border-radius: 50%;overflow: hidden;border: 3px solid white;flex-shrink: 0;">
                                 @if (user.ProfilePicture != null)
                                 {
@@ -209,8 +212,21 @@
                                     <strong>@user.FName -</strong>
                                     <span class="text-muted">@comment.CreatedDate.ToString("MMMM") @comment.CreatedDate.Year</span>
                                     <br />
-                                    @comment.Content
+                                @comment.Content
                                 </p>
+                                <!-- add delete button -->
+                                @if(UserManager.GetUserAsync(User)?.Result?.Id == comment.UserId)
+                                {
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton@(comment.Id)" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-xs dropdown-menu-end" aria-labelledby="dropdownMenuButton@(comment.Id)">
+                                            <li><a class="dropdown-item" onclick="deleteComment('@comment.Id')">Delete</a></li>
+                                        </ul>
+                                    </div>
+                                }
+                                <!-- end of delete button -->
                             </div>
                         </div>
                     }
@@ -227,7 +243,9 @@
 
 </div>
 
-
+@section Scripts {
+    <script src="~/js/delete-comment.js"></script>
+}
 
 <script type='text/javascript'>
     function GetMap() {

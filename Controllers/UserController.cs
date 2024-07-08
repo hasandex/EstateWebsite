@@ -31,11 +31,16 @@ namespace EstateWebsite.Controllers
             _commentRepo.Add(comment);
             return RedirectToAction("Detail", "Estate", new { estateId = comment.EstateId });
         }
-        //public IActionResult RemoveComment(int commentId)
-        //{
-        //    _commentRepo.RemoveComment(commentId);
-        //    return RedirectToAction("Detail", "Estate", new { estateId = commentId });
-        //}
+        public IActionResult RemoveComment(int commentId)
+        {
+            var isDelete = _commentRepo.RemoveComment(commentId);
+            if(isDelete > 0)
+            {
+                return Ok();
+            }
+            return BadRequest();
+           // return RedirectToAction("Detail", "Estate", new { estateId = commentId });
+        }
         public IActionResult SaveProperty(int estateId)
         {
             if (!ModelState.IsValid)
