@@ -25,21 +25,9 @@ namespace EstateWebsite.Controllers
 
             return selectList;
         }
-        public IActionResult Index(string? seachName,[FromQuery] Category? categoryName, int? minPrice, int? maxPrice)
+        public IActionResult Index()
         {
-            //var estates = _estateRepo.GetEstates();
-            //if (!string.IsNullOrEmpty(seachName))
-            //{
-            //    estates = _estateRepo.SearchByName(seachName);
-            //}
-            //if (categoryName.HasValue)
-            //{
-            //    estates = estates.Where(p => p.Category == categoryName.Value).ToList();
-            //}
-            //if(minPrice.HasValue && maxPrice.HasValue)
-            //{
-            //    estates = estates.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
-            //}
+            ViewBag.estates = _estateRepo.GetEstates();
             ViewBag.selectCategories = GetEnumSelectList<Category>();
             ViewBag.selectGovernorate = GetEnumSelectList<Governorate>();
             return View();

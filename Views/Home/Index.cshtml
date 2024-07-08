@@ -7,16 +7,22 @@
                 Vero elitr justo clita lorem. Ipsum dolor at sed stet
                 sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.
             </p>
-            <a href="" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Get Started</a>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Get Started</a>
+            }
         </div>
         <div class="col-md-6 animated fadeIn">
             <div class="owl-carousel header-carousel">
-                <div class="owl-carousel-item">
-                    <img class="img-fluid" src="~/theme/img/carousel-1.jpg" alt="">
-                </div>
-                <div class="owl-carousel-item">
-                    <img class="img-fluid" src="~/theme/img/carousel-2.jpg" alt="">
-                </div>
+                @foreach (var estate in ViewBag.estates)
+                {
+                    <a asp-action="Detail" asp-controller="Estate" asp-route-estateId="@estate.Id">
+                        <div class="owl-carousel-item">
+                            <img class="img-fluid" src="data:image/*;base64,@(Convert.ToBase64String(estate.Cover))" alt="estate.Name">
+                        </div>
+                    </a>
+                   
+                }
             </div>
         </div>
     </div>
@@ -45,7 +51,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn btn-dark border-0 w-100 py-3">Search</button>
+                <button type="submit" class="btn btn-success border-0 w-100 py-3">Search</button>
             </div>
            
         </div>
@@ -62,7 +68,7 @@
         </div>
         <div class="row g-4">
             <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
+                <a class="btn cat-item d-block bg-light text-center rounded p-3" href="">
                     <div class="rounded p-4">
                         <div class="icon mb-3">
                             <img class="img-fluid" src="~/theme/img/icon-apartment.png" alt="Icon">

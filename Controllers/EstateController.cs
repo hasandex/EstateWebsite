@@ -75,6 +75,13 @@ namespace EstateWebsite.Controllers
             ViewBag.forRent = forRent;
             return View(estates);
         }
+
+        [AllowAnonymous]
+        public IActionResult GetByCategory(Category categoryName)
+        {
+           var estates = _estateRepo.GetByCategory(categoryName);
+            return View("Explore",estates);
+        }
         public IActionResult Create()
         {
             var viewModel = new CreateEstateVM()
