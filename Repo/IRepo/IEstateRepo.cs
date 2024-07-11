@@ -16,6 +16,7 @@ namespace EstateWebsite.Repo.IRepo
         int DeleteEstateImage(int estateId, string image);
         IEnumerable<Estate> GetByCategory(Category category);
         //IEnumerable<Estate> GetEstateDelegate(Func<Estate, bool> filter);
+        IEnumerable<IGrouping<Category, Estate>> GroupByCategory();
         IEnumerable<Estate> GetEstateForRent();
         IEnumerable<Estate> GetEstateForSell();
         IEnumerable<Estate> SearchByName(string searchName);

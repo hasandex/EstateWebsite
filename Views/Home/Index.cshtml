@@ -1,4 +1,6 @@
-﻿﻿ <!-- Header Start -->
+﻿@model IEnumerable<CategoriesEstatesVM>
+
+<!-- Header Start -->
 <div class="container-fluid header bg-white p-0">
     <div class="row g-0 align-items-center flex-column-reverse flex-md-row" style="padding-top: 1rem; margin-top: 1rem; ">
         <div class="col-md-6 p-5 mt-lg-5">
@@ -67,97 +69,23 @@
             <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
         </div>
         <div class="row g-4">
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <form asp-action="Explore" asp-controller="Estate" method="get">
-                <input hidden value="Appartement" name="categoryName" />
-                <button type="submit" class="btn cat-item d-block bg-light text-center rounded p-3 w-100" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="~/theme/img/icon-apartment.png" alt="Icon">
-                        </div>
-                        <h6>Apartment</h6>
-                        <span>@ViewBag.Appartement Properties</span>
-                    </div>
-                </button>
-                </form>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="~/theme/img/icon-villa.png" alt="Icon">
-                        </div>
-                        <h6>Villa</h6>
-                        <span>@ViewBag.Villa Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="~/theme/img/icon-house.png" alt="Icon">
-                        </div>
-                        <h6>Home</h6>
-                        <span>@ViewBag.House Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="~/theme/img/icon-housing.png" alt="Icon">
-                        </div>
-                        <h6>Office</h6>
-                        <span>@ViewBag.Office Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="~/theme/img/icon-building.png" alt="Icon">
-                        </div>
-                        <h6>Farm</h6>
-                        <span>@ViewBag.Farm Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="~/theme/img/icon-neighborhood.png" alt="Icon">
-                        </div>
-                        <h6>Townhouse</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="~/theme/img/icon-condominium.png" alt="Icon">
-                        </div>
-                        <h6>Shop</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                    <div class="rounded p-4">
-                        <div class="icon mb-3">
-                            <img class="img-fluid" src="~/theme/img/icon-luxury.png" alt="Icon">
-                        </div>
-                        <h6>Garage</h6>
-                        <span>123 Properties</span>
-                    </div>
-                </a>
-            </div>
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <form asp-action="Explore" asp-controller="Estate" method="get">
+                        <input hidden value="@item.Category" name="categoryName" />
+                        <button type="submit" class="btn cat-item d-block bg-light text-center rounded p-3 w-100" href="">
+                            <div class="rounded p-4">
+                                <div class="icon mb-3">
+                                    <img class="img-fluid" src="~/theme/img/icon-@(item.Category.ToString().ToLower()).png" alt="Icon">
+                                </div>
+                                <h6>@item.Category</h6>
+                                <span>@item.Count</span>
+                            </div>
+                        </button>
+                    </form>
+                </div>
+            }
         </div>
     </div>
 </div>

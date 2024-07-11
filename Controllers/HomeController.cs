@@ -35,14 +35,17 @@ namespace EstateWebsite.Controllers
             ViewBag.estates = _estateRepo.GetEstates();
             ViewBag.selectCategories = GetEnumSelectList<Category>();
             ViewBag.selectGovernorate = GetEnumSelectList<Governorate>();
-
-            ViewBag.Appartement = _estateRepo.GetByCategory(Category.appartement).Count();
-            ViewBag.House = _estateRepo.GetByCategory(Category.house).Count();
-            ViewBag.Villa = _estateRepo.GetByCategory(Category.villa).Count();
-            ViewBag.Farm = _estateRepo.GetByCategory(Category.farm).Count();
-            ViewBag.Office = _estateRepo.GetByCategory(Category.office).Count();
-
-            return View();
+            var estatesGrouped = _estateRepo.GroupByCategory();
+            var categoriesVM = new List<CategoriesEstatesVM>();
+            foreach (var item in estatesGrouped)
+            {
+                categoriesVM.Add(new CategoriesEstatesVM()
+                {
+                    Category = item.Key,
+                    Count = item.Count()
+                });
+            }
+            return View(categoriesVM);
         }
 
         public IActionResult About()

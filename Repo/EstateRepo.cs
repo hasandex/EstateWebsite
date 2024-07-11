@@ -182,6 +182,13 @@ namespace EstateWebsite.Repo
             return estates.Count(); 
         }
 
+        public IEnumerable<IGrouping<Category, Estate>> GroupByCategory()
+        {
+            var estates = GetEstates().GroupBy(e => e.Category).ToList();
+            return estates;
+        }
+
+
         //public IEnumerable<Estate> GetEstateDelegate(Func<Estate, bool> filter)
         //{
         //    return _context.Estates?.Include(e=>e.EstateImages)
