@@ -55,11 +55,15 @@ namespace EstateWebsite.Controllers
             {
                 estates = estates.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
             }
-            if(forSale == "forSale")
+            if(forSale == "forSale" && forRent == "forRent")
+            {
+                estates = estates.Where(p => p.ForSale == true || p.ForRent == true).ToList();
+            }
+            if(forSale == "forSale" && forRent != "forRent")
             {
                 estates = estates.Where(p => p.ForSale == true).ToList();
             }
-            if(forRent == "forRent")
+            if (forSale != "forSale" && forRent == "forRent")
             {
                 estates = estates.Where(p => p.ForRent == true).ToList();
             }

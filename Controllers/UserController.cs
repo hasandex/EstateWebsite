@@ -71,7 +71,6 @@ namespace EstateWebsite.Controllers
         public IActionResult DisplaySaveEstates()
         {
             var savedEstates = _saveProperty.GetAllSavedEstates(_userService.GetUserId());
-            var x = 3;
             return View(savedEstates);
         }
     }

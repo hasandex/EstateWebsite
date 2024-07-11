@@ -1,8 +1,4 @@
 ﻿
-using EstateWebsite.Models;
-using EstateWebsite.ViewModel;
-using Microsoft.AspNetCore.Hosting;
-
 namespace EstateWebsite.Repo
 {
     public class EstateRepo : IEstateRepo
@@ -185,5 +181,12 @@ namespace EstateWebsite.Repo
                 return 0;
             return estates.Count(); 
         }
+
+        //public IEnumerable<Estate> GetEstateDelegate(Func<Estate, bool> filter)
+        //{
+        //    return _context.Estates?.Include(e=>e.EstateImages)
+
+        //     .Where(filter).ToList();
+        //}
     }
 }

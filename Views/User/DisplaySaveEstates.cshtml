@@ -32,7 +32,7 @@ else
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a asp-action="Detail" asp-route-estateId="@es.Estate.Id"><img class="img-fluid" src="data:image/*;base64,@(Convert.ToBase64String(es.Estate.Cover))"></a>
+                                        <a asp-action="Detail" asp-controller="Estate" asp-route-estateId="@es.Estate.Id"><img class="img-fluid" src="data:image/*;base64,@(Convert.ToBase64String(es.Estate.Cover))"></a>
                                         <div class="  rounded text-white position-absolute start-0 top-0">
                                             @if (es.Estate.ForSale == true)
                                             {
@@ -66,3 +66,15 @@ else
     </div>
 
 }
+
+<style>
+    .property-item {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .property-item .p-4 {
+            flex-grow: 1;
+        }
+</style>
