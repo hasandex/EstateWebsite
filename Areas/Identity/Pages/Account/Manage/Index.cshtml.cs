@@ -60,6 +60,8 @@ namespace EstateWebsite.Areas.Identity.Pages.Account.Manage
             public string PhoneNumber { get; set; }
 
             [Display(Name = "Profilr Picture")]
+            [AllowedExtension(Settings.allowedExtensions)]
+            [MaxFileSize(Settings.maxFileSizeImg)]
             public byte[]? ProfilePicture { get; set; }
             [Required]
             [Display(Name = "First Name")]

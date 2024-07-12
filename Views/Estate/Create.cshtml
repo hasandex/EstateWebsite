@@ -226,10 +226,6 @@
                             async defer>
                     </script>
                     <div class="col-md-12" id="myMap" style='position:relative;height:400px;' onload="GetMap();"></div>
-                    <div id="typlatcord" hidden> </div>
-                    <div id="typlongcord" hidden> </div>
-                    @*  <input id="lat" name="latcord" />
-                    <input id="long" name="longcord" /> *@
                     <div class="row">
                         <div class="form-group col-md-6 col-lg-3 mb-2">
                             <label asp-for="longitude">  </label>
@@ -297,9 +293,6 @@
             });
             // Add the pushpin to the map
             map.entities.push(pin);
-            // print Coordinates in Div s
-            document.getElementById('typlatcord').textContent = longitude;
-            document.getElementById('typlongcord').textContent = latitude;
             // print Coordinates in Input Form
             document.getElementById('long').value = longitude;
             document.getElementById('lat').value = latitude;

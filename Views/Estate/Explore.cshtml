@@ -40,6 +40,10 @@
                                 {
                                     <option value="@(i*100)">@(i*100) $</option>
                                 }
+                                @for (int i = 2; i <= 10; i++)
+                                {
+                                    <option value="@(i*1000)">@(i * 1000) $</option>
+                                }
                                 @if (ViewBag.minPrice != null)
                                 {
                                     <option selected>@ViewBag.minPrice $ </option>
@@ -52,6 +56,10 @@
                                 @for (int i = 1; i <= 10; i++)
                                 {
                                     <option value="@(i*100)">@(i*100) $</option>
+                                }
+                                @for (int i = 2; i <= 10; i++)
+                                {
+                                    <option value="@(i*1000)">@(i * 1000) $</option>
                                 }
                                 @if (ViewBag.maxPrice != null)
                                 {

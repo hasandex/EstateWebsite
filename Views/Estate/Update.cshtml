@@ -198,16 +198,17 @@
                     <div class="form-group mb-3 ">
                         <label asp-for="FormCover"> Add Main Cover</label>
                         <input asp-for="FormCover" type="file" class="form-control-file" />
+                        <br />
                         <span asp-validation-for="FormCover" class="text text-danger"> </span>
                     </div>
-                    @*  <div class="mt-4 mb-3">
-                    <p style="display:inline">If You Want To Manage Other Estate Images</p>
-                    <a asp-action="UpdateEstateImages" asp-route-estateId="@Model.Id" class="btn btn-primary">Click Here</a>
-                    </div> *@
                 </div>
 
                 <div class="col-sm-12 col-md-6 d-flex justify-content-center pt-4 overflow-hidden">
-                    <img class="cover-preview m-auto " src="data:image/*;base64,@(Convert.ToBase64String(Model.Cover))" alt="Cover" style="width: inherit" />
+                <img class="cover-preview m-auto" src="@(Model.Cover != null ? $"data:image/png|image/jpeg|/image/jpg|image/webp;base64,{Convert.ToBase64String(Model.Cover)}" : "#")" alt="Cover" style="width: inherit" />
+                </div>
+                <div class="mt-4 mb-3">
+                    <p style="display:inline">If You Want To Manage Other Estate Images</p>
+                    <a asp-action="UpdateEstateImages" asp-route-estateId="@Model.Id" class="btn btn-primary">Click Here</a>
                 </div>
 
             </div>

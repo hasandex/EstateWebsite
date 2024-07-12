@@ -176,7 +176,7 @@ namespace EstateWebsite.Controllers
             var isUpdated = _estateRepo.UpdateEstateImages(viewModel);
             if (isUpdated >= 0)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Update","Estate",new {estateId = viewModel.Id });
             }
             return BadRequest();
         }
