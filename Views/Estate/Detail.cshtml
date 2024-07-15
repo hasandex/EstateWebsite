@@ -169,64 +169,75 @@
 
         </div>
     </div>
-    <!-- comments area -->
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-6 col-sm-12">
-                <!-- add comment -->
-                <form asp-controller="User" asp-action="AddComment" method="post">
-                    <textarea id="inputField" class="form-control" aria-label="With textarea" name="Content" style="border:none ;width: 50%; vertical-align:top;" placeholder="add comment"></textarea>
-                    <input type="hidden" name="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
-                    <input type="hidden" name="EstateId" class="form-control" value="@Model.Id" />
-                    <button id="submitButton" type="submit" class="btn btn-success btn-sm" style="display: inline-block; margin-top:10px;">Comment</button>
-                </form>
-                <!-- end of add comment -->
+
+
+    <!-- add comment -->
+    
+        @if (User.Identity.IsAuthenticated)
+        {
+        var currentUser = UserManager.GetUserAsync(User).Result;
+        <input hidden id="userPic" value="@currentUser.ProfilePicture" />
+        <input hidden id="userFName" value="@currentUser.FName" />
+
+        <div class="container">
+            <div class="row mt-4">
+                <div class="col-md-6 col-sm-12">
+                    <textarea id="commentContent" class="form-control" aria-label="With textarea" name="Content" style="border:none ;width: 50%; vertical-align:top;" placeholder="add comment"></textarea>
+                    <input hidden name="UserId" class="form-control" value="@UserManager.GetUserId(User)" id="userId" />
+                    <input hidden name="EstateId" class="form-control" value="@Model.Id" />
+
+                    <button onclick="addComment(@Model.Id)" id="submitButton" type="submit" class="btn btn-success btn-sm" style="display: inline-block; margin-top:10px;">Comment</button>
+                </div>
             </div>
         </div>
-    </div>
+    }
 
+    <!-- end of add comment -->
+   
+    <!-- comments -->
+ 
     <div class="container">
         <div class="row mt-4">
-            <div class="col-md-6 col-sm-12">
-                <h4>Comments</h4>
+            <h4 class="mb-4">Comments</h4>
+            <div class="col-md-4 col-sm-12 commentContainer" id="commentContainer">
                 @if (Model != null && Model.Comments != null && Model.Comments.Any())
                 {
                     @foreach (var comment in Model.Comments)
                     {
                         var user = await UserManager.FindByIdAsync(comment.UserId);
-                        
-                        <div id="comment-@(comment.Id)" class="overflow-hidden d-flex mt-4" style="gap:10px; width: 100%;">
-                            <input id="commentId" hidden value="@comment.Id" />
-                            <div style="width: 50px;height: 50px;border-radius: 50%;overflow: hidden;border: 3px solid white;flex-shrink: 0;">
-                                @if (user.ProfilePicture != null)
-                                {
-                                    <img src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" style="height:100%; width: 100%;" alt="profile">
-                                }
-                                else
-                                {
-                                    <img src="~/assets/cover.png" style="height:100%; width: 100%;" alt="profile">
-                                }
-                            </div>
-                            <div class="w-50 d-flex" style="gap:40px">
-                                <p class="mt-1" style="word-break: break-all;">
-                                    <strong>@user.FName -</strong>
-                                    <span class="text-muted">@comment.CreatedDate.ToString("MMMM") @comment.CreatedDate.Year</span>
-                                    <br />
-                                @comment.Content
-                                </p>
-                                <!-- add delete button -->
-                                @if(UserManager.GetUserAsync(User)?.Result?.Id == comment.UserId)
-                                {
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton@(comment.Id)" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-xs dropdown-menu-end" aria-labelledby="dropdownMenuButton@(comment.Id)">
-                                            <li><a class="dropdown-item" onclick="deleteComment('@comment.Id')">Delete</a></li>
-                                        </ul>
+                        <input id="commentId" type="hidden" value="@comment.Id" />
+                        <div id="comment-@(comment.Id)" class="card mb-4">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="profile-pic me-3">
+                                        @if (user.ProfilePicture != null)
+                                        {
+                                            <img style="width:50px;height:50px" src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" class="rounded-circle" alt="profile">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/assets/night.jpg" class="rounded-circle" style="width:100px;height:100px" alt="profile">
+                                        }
                                     </div>
-                                }
-                                <!-- end of delete button -->
+                                    <div>
+                                        <h6 class="mb-0">@user.FName</h6>
+                                        <small class="text-muted">@comment.CreatedDate.ToString("MMMM") @comment.CreatedDate.Year</small>
+                                    </div>
+                                    @if (UserManager.GetUserAsync(User)?.Result?.Id == comment.UserId)
+                                    {
+                                        <div class="ms-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton@(comment.Id)" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton@(comment.Id)">
+                                                    <li><a class="dropdown-item btn" onclick="deleteComment('@comment.Id')">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <p class="card-text">@comment.Content</p>
                             </div>
                         </div>
                     }
@@ -238,76 +249,61 @@
             </div>
         </div>
     </div>
-
-
+    <!--end of comments-->
 
 </div>
 
 @section Scripts {
     <script src="~/js/delete-comment.js"></script>
+    <script src="~/js/add-comment.js"></script>
+    <script>
+        window.onload = function () {
+            const commentContent = document.getElementById("commentContent");
+            const submitButton = document.getElementById("submitButton");
+
+            // Disable the button initially
+            submitButton.disabled = true;
+
+            // Enable the button when the input field has a value
+            commentContent.addEventListener("input", function () {
+                submitButton.disabled = commentContent.value.trim() === "";
+            });
+        };
+    </script>
+    <script type='text/javascript'>
+        function GetMap() {
+            ///////////////Converting the C# Model to JS model
+            // convsert the data base table to Array in json type
+            var home = @Html.Raw(Json.Serialize(Model));
+            //You can customize the map as you load it.
+            // Use the following code to update how the map is loaded in the GetMap function such that it sets the type to aerial,
+            // the zoom level to 10, and the map center over London, UK (51.50632, -0.12714).
+            var map = new Microsoft.Maps.Map('#myMap', {
+                credentials: 'ArTYnXAo5ajG1e4ZyFIV-LT3sW_IU0Uy2YETN7N-u5EdkJOaOwaft6BOA1SPlVfA',
+                center: new Microsoft.Maps.Location(home.longitude, home.latitude),
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                zoom: 10
+            });
+            var location = new Microsoft.Maps.Location(home.longitude, home.latitude);
+            var pin = new Microsoft.Maps.Pushpin(location, {
+                color: 'green',
+                title: home.name,
+            });
+            map.entities.push(pin);
+            //////////////////Pushpins, sometimes known as MapIcons or Markers,
+            // are the primary method in the Bing Maps V8 Map Control to add a graphical image and text at a location within the map.
+            //Create custom Pushpin
+            // هنا يمكننا وضع الاحداثيات بدل سينتر لتثبيت ماركر
+
+            var myloc = new Microsoft.Maps.Location(35.340192118895025, 35.93475407561252);
+            var pin = new Microsoft.Maps.Pushpin(myloc, {
+                color: 'red',
+                title: 'Jableh',
+                subTitle: 'City Center',
+            });
+            map.entities.push(pin);
+        } // end of Getmap()
+    </script>
 }
 
-<script type='text/javascript'>
-    function GetMap() {
 
-
-        ///////////////Converting the C# Model to JS model
-        // convsert the data base table to Array in json type
-        var home = @Html.Raw(Json.Serialize(Model));
-
-
-        //You can customize the map as you load it.
-        // Use the following code to update how the map is loaded in the GetMap function such that it sets the type to aerial,
-        // the zoom level to 10, and the map center over London, UK (51.50632, -0.12714).
-        var map = new Microsoft.Maps.Map('#myMap', {
-            credentials: 'ArTYnXAo5ajG1e4ZyFIV-LT3sW_IU0Uy2YETN7N-u5EdkJOaOwaft6BOA1SPlVfA',
-            center: new Microsoft.Maps.Location(home.longitude, home.latitude),
-            mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-            zoom: 10
-        });
-
-        var location = new Microsoft.Maps.Location(home.longitude, home.latitude);
-        var pin = new Microsoft.Maps.Pushpin(location, {
-            color: 'green',
-            title: home.name,
-        });
-        map.entities.push(pin);
-
-        //////////////////Pushpins, sometimes known as MapIcons or Markers,
-        // are the primary method in the Bing Maps V8 Map Control to add a graphical image and text at a location within the map.
-        //Create custom Pushpin
-        // هنا يمكننا وضع الاحداثيات بدل سينتر لتثبيت ماركر
-
-        var myloc = new Microsoft.Maps.Location(35.340192118895025, 35.93475407561252);
-        var pin = new Microsoft.Maps.Pushpin(myloc, {
-            color: 'red',
-            title: 'Jableh',
-            subTitle: 'City Center',
-
-        });
-        map.entities.push(pin);
-
-
-
-
-
-    } // end of Getmap()
-
-
-
-</script>
-
-<script>
-    window.onload = function () {
-        const inputField = document.getElementById("inputField");
-        const submitButton = document.getElementById("submitButton");
-
-        // Disable the button initially
-        submitButton.disabled = true;
-
-        // Enable the button when the input field has a value
-        inputField.addEventListener("input", function () {
-            submitButton.disabled = inputField.value.trim() === "";
-        });
-    };
-</script>
