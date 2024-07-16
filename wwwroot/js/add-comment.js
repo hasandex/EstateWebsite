@@ -16,7 +16,7 @@ function addComment(estateId) {
             if (result.success) {
                 // cleat the comment from its input
                 $("#commentContent").val("");
-
+                
                 // create the new comment html
                 var newCommentHtml = `
                     <div id="comment-${result.commentId}" class="card mb-4">
@@ -46,8 +46,12 @@ function addComment(estateId) {
                             </div>
                         </div>
                 `;
-                //add the comment to its div
-                commentContainer.innerHTML += newCommentHtml;
+                //create div element to put the new elemen in, and then insert this div in the elements container
+                var tempDiv = document.createElement('div');
+                tempDiv.innerHTML = newCommentHtml.trim();
+                var commentElement = tempDiv;
+                //insert the comment div in the container
+                commentContainer.insertBefore(commentElement, commentContainer.firstChild);
             } else {
                 // Display the errors from the server-side
                 alert("Error adding comment: " + result.errors.join(", "));

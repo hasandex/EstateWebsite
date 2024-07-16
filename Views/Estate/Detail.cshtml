@@ -202,7 +202,7 @@
             <div class="col-md-4 col-sm-12 commentContainer" id="commentContainer">
                 @if (Model != null && Model.Comments != null && Model.Comments.Any())
                 {
-                    @foreach (var comment in Model.Comments)
+                    @foreach (var comment in Model.Comments.OrderByDescending(c=>c.CreatedDate))
                     {
                         var user = await UserManager.FindByIdAsync(comment.UserId);
                         <input id="commentId" type="hidden" value="@comment.Id" />
